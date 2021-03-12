@@ -1,6 +1,8 @@
 #### Simple bash scripts to backup Ubuntu Touch home directories using ADB
 
-- Requires Android debug tools on host system
+Tested on Ubuntu 20.04 host and OnePlus One Bacon OTA-15
+
+- Requires Android debug tools on linux host system
 - Interative selection of directories to backup and restore
 - Creates dated backups for later restoration
 - Not tested for cross device restoring or restoring after updates

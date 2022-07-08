@@ -52,7 +52,7 @@ then
 	backup_path_1=($backup_2_restore*/)
 	for folder in ${backup_path_1[@]}
 	do
-		read -p "Would you like to restore $out_folder`echo $'\n[Y/N] '`" -n 1 -r
+		read -p "Would you like to restore "$out_folder$(basename "$folder")/"`echo $'\n[Y/N] '`" -n 1 -r
 		echo ""
 		
 		if [[ "$REPLY" =~ ^[Yy]$ ]]
@@ -68,7 +68,7 @@ then
 	backup_path_2=($backup_2_restore.*[A-Za-z]/)
 	for folder in ${backup_path_2[@]}
 	do
-		read -p "Would you like to restore $out_folder`echo $'\n[Y/N] '`" -n 1 -r
+		read -p "Would you like to restore "$out_folder$(basename "$folder")/"`echo $'\n[Y/N] '`" -n 1 -r
 		echo ""
 		
 		if [[ "$REPLY" =~ ^[Yy]$ ]]

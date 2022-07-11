@@ -9,7 +9,6 @@ backup_array=($backup_path_0/*/)
 out_folder="/home/phablet/"
 
 
-
 backup_2_restore=""
 
 echo ""
@@ -53,6 +52,7 @@ then
 	for folder in ${backup_path_1[@]}
 	do
 		read -p "Would you like to restore "$out_folder$(basename "$folder")/"`echo $'\n[Y/N] '`" -n 1 -r
+
 		echo ""
 		
 		if [[ "$REPLY" =~ ^[Yy]$ ]]
@@ -60,26 +60,31 @@ then
 			adb push "$folder" "$out_folder"
 			echo ""
 		else
-			echo "Skipping $out_folder"
+			echo "Skipping $out_folder$(basename "$folder")/"
 			echo ""
 		fi
 	done
 	
 	backup_path_2=($backup_2_restore.*[A-Za-z]/)
-	for folder in ${backup_path_2[@]}
-	do
-		read -p "Would you like to restore "$out_folder$(basename "$folder")/"`echo $'\n[Y/N] '`" -n 1 -r
-		echo ""
-		
-		if [[ "$REPLY" =~ ^[Yy]$ ]]
-		then
-			adb push "$folder" "$out_folder"
-			echo ""
-		else
-			echo "Skipping $out_folder"
-			echo ""
-		fi
-	done
+    for folder in ${backup_path_2[@]}
+    do
+        if [ ! "$(basename "$folder")" == ".*[A-Za-z]" ] ; then
+	            read -p "Would you like to restore "$out_folder$(basename "$folder")/"`echo $'\n[Y/N] '`" -n 1 -r
+
+	            echo ""
+	            
+	            if [[ "$REPLY" =~ ^[Yy]$ ]]
+	            then
+		            adb push "$folder" "$out_folder"
+		            echo ""
+	            else
+		            echo "Skipping $out_folder$(basename "$folder")/"
+		            echo ""
+	            fi
+        else
+	        echo "No Hidden Directories to Restore"
+        fi
+    done
 else
 	echo "Goodbye!"
 	exit 1
